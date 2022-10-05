@@ -21,8 +21,6 @@ export default function Signup({ navigation }) {
   const onHandleSignup = () => {
     if (email !== "" && password !== "") {
       createUserWithEmailAndPassword(auth, email, password)
-        .then(() => console.log("Signup success"))
-        .catch((err) => Alert.alert("Login error", err.message));
     }
   };
 
@@ -54,7 +52,6 @@ export default function Signup({ navigation }) {
         />
         <TouchableOpacity style={styles.button} onPress={onHandleSignup}>
           <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
-            {" "}
             Sign Up
           </Text>
         </TouchableOpacity>
@@ -67,11 +64,10 @@ export default function Signup({ navigation }) {
           }}
         >
           <Text style={{ color: "gray", fontWeight: "600", fontSize: 14 }}>
-            Don't have an account?{" "}
+            Don't have an account?
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text style={{ color: "#f57c00", fontWeight: "600", fontSize: 14 }}>
-              {" "}
               Log In
             </Text>
           </TouchableOpacity>

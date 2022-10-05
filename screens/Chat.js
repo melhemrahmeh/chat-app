@@ -14,12 +14,12 @@ import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import colors from "../colors";
 
-export default function Chat() {
+const Chat = () => {
   const [messages, setMessages] = useState([]);
   const navigation = useNavigation();
 
   const onSignOut = () => {
-    signOut(auth).catch((error) => console.log("Error logging out: ", error));
+    signOut(auth);
   };
 
   useLayoutEffect(() => {
@@ -47,7 +47,6 @@ export default function Chat() {
     const q = query(collectionRef, orderBy("createdAt", "desc"));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log("querySnapshot unsusbscribe");
       setMessages(
         querySnapshot.docs.map((doc) => ({
           _id: doc.data()._id,
@@ -64,8 +63,9 @@ export default function Chat() {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
-    // setMessages([...messages, ...messages]);
+
     const { _id, createdAt, text, user } = messages[0];
+
     addDoc(collection(database, "chats"), {
       _id,
       createdAt,
@@ -78,7 +78,7 @@ export default function Chat() {
     <GiftedChat
       messages={messages}
       showAvatarForEveryMessage={false}
-      showUserAvatar={false}
+      showUserAvatar={true}
       onSend={(messages) => onSend(messages)}
       messagesContainerStyle={{
         backgroundColor: "#fff",
@@ -94,3 +94,5 @@ export default function Chat() {
     />
   );
 }
+
+export default Chat;
